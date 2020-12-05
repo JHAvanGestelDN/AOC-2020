@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Day5
 {
@@ -18,8 +17,8 @@ namespace Day5
                 int row = Get(s.Substring(0, 7), false);
                 int col = Get(s.Substring(7, 3), true);
                 int seatId = row * 8 + col;
-                if (seatId > heighest)
-                    heighest = seatId;
+                heighest = seatId > heighest ? seatId : heighest;
+
                 seatIds.Add(seatId);
             }
 
@@ -31,6 +30,7 @@ namespace Day5
         {
             allSeats.Sort();
             int min = allSeats[0];
+
             for (int i = 1; i < allSeats.Count; i++)
             {
                 if (allSeats[i] != min + 1)
@@ -44,22 +44,15 @@ namespace Day5
         private static int Get(string input, bool col)
         {
             int start = 0;
-            int end = 127;
-            if (col)
-                end = 7;
+            int end = col ? 7 : 127;
+
             for (int i = 0; i < input.Length - 1; i++)
             {
-                if (!col && input[i] == 'F' || col && input[i] == 'L')
-                    end = end - (end - start) / 2 - 1;
-                if (!col && input[i] == 'B' || col && input[i] == 'R')
-                {
-                    start = end - (end - start) / 2;
-                }
+                end = input[i] == 'F' || input[i] == 'L' ? end - (end - start) / 2 - 1 : end;
+                start = input[i] == 'B' || input[i] == 'R' ? end - (end - start) / 2 : start;
             }
 
-            if (!col && input[^1] == 'F' || col && input[^1] == 'L')
-                return start;
-            return end;
+            return input[^1] == 'F' || input[^1] == 'L' ? start : end;
         }
     }
 }
