@@ -37,7 +37,7 @@ namespace Day6
                         mapping.Add(c, 1);
                 }
 
-                result += mapping.Count(v => v.Value >= s.Split('\n').Length);
+                result += mapping.Count(v => v.Value == s.Split('\n').Length);
             }
 
             return result;
