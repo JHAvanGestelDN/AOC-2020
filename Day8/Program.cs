@@ -40,13 +40,6 @@ namespace Day8
             return null;
         }
 
-        private static int Helper(string instruction)
-        {
-            return instruction.Substring(0, 1) == "+"
-                ? Convert.ToInt32(instruction.Substring(1))
-                : Convert.ToInt32(instruction.Substring(1)) * -1;
-        }
-
         private static Tuple<bool, int> EscapeAttempt(string[] modInstructions)
         {
             HashSet<int> indexes = new HashSet<int>();
@@ -65,10 +58,10 @@ namespace Day8
                     case "nop":
                         break;
                     case "acc":
-                        acc += Helper(instruction[1]);
+                        acc += Convert.ToInt32(instruction[1]);
                         break;
                     case "jmp":
-                        i += Helper(instruction[1]);
+                        i += Convert.ToInt32(instruction[1]);
                         i--;
                         break;
                 }
