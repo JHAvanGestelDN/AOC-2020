@@ -28,10 +28,11 @@ namespace Day8
             for (int i = 0; i < input.Length; i++)
             {
                 string[] instruction = input[i].Trim().Split(" ");
+                if (instruction[0] == "acc") continue;
                 Array.Copy(input, modInput, input.Length);
-                
-                modInput[i] = instruction[0] != "acc" ? instruction[0] == "nop" ? "jmp " + instruction[1] : "nop " + instruction[1] : input[i];
-                
+
+                modInput[i] = instruction[0] == "nop" ? "jmp " + instruction[1] : "nop " + instruction[1];
+
                 escapeAble = EscapeAttempt(modInput);
                 if (escapeAble.Item1)
                     return escapeAble.Item2;
